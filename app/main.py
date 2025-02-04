@@ -23,11 +23,11 @@ def create_person_list(people: list) -> list:
         instances.append(instance)
 
     for instance in instances:
-        for partner in instances:
-            if partner.wife:
-                if instance.name == partner.wife:
-                    partner.wife = instance
-            if partner.husband:
-                if instance.name == partner.husband:
-                    partner.husband = instance
+        for value in Person.people.values():
+            if value.wife:
+                if instance.name == value.wife:
+                    value.wife = instance
+            if value.husband:
+                if instance.name == value.husband:
+                    value.husband = instance
     return instances
