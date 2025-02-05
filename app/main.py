@@ -1,15 +1,13 @@
 class Person:
     people = {}
 
-    def __init__(self, name: str, age: int):
+    def __init__(self, name: str, age: int) -> None:
         self.name = name
         self.age = age
         if self.name not in Person.people:
             Person.people.update({
                 self.name: self
             })
-        self.wife = None
-        self.husband = None
 
 
 def create_person_list(people: list) -> list:
@@ -23,11 +21,13 @@ def create_person_list(people: list) -> list:
         instances.append(instance)
 
     for instance in instances:
-        for value in Person.people.values():
-            if value.wife:
-                if instance.name == value.wife:
-                    value.wife = instance
-            if value.husband:
-                if instance.name == value.husband:
-                    value.husband = instance
+        if "wife" in instance.__dict__:
+            for partner in instances:
+                if instance.__dict__["wife"] == partner.name:
+                    instance.__dict__["wife"] = partner
+        if "husband" in instance.__dict__:
+            for partner in instances:
+                if instance.__dict__["husband"] == partner.name:
+                    instance.__dict__["husband"] = partner
+
     return instances
